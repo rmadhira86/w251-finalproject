@@ -1,6 +1,23 @@
 # W251 Final Project
 ## Manohar Madhira, Ryan Murphy, Napoleon Paxton,  Joe Villasenor
 
+## Development process
+Each participant works in their branch and submits a pull request for merging with Main branch. We should not push code directly into `main` branch. This best practice allows all of us to work simultaneously without overwriting each others code. This also reduces merge effort at the end of the project. Strongly recommend using Visual Studio Code (VSC) for development. 
+
+Typical dev process would be:  
+1.  Create a branch using  
+    -   GIT CLI `git checkout -b <branch name>`  
+    -   VSC  **Source Control > Branch > Create Branch From**
+
+
+2.  Make your changes. Once changes are done, and preliminary run complete, commit and push changes to branch.  
+    -   GIT CLI: `git add <files>`, `git commit -m "<message>"`, `git push`
+    -   VSC  **Source Control**. Then Add the files using +. Enter a message and press Ctrl+Enter to commit. Use **Source Control > Pull, Push > Push** to push changes.
+
+3.  Once all changes are successful, On GitHub.com create Pull Request
+4.  Preferably, have another team member review and merge
+
+
 ## Project Structure
 The project structure is created based on `cookiecutter` folder structure for Machine Learning as documented [here](https://medium.com/analytics-vidhya/folder-structure-for-machine-learning-projects-a7e451a8caaa)   
 
