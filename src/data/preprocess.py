@@ -4,6 +4,7 @@
 #    Location of Zip file that contains a coco formatted file generated typically from roboflow
 #    The zip file should contain _annotations file and all images.
 
+
 # Happy path, simple runs:
 # 1. Download a zip file from roboflow into data/raw as a zip file
 # 2. Run Either of the below. Remove to --verbose or -v to remove verbose prints
@@ -15,6 +16,7 @@
 # Most other options provide options to override default locations of files and some run options
 # Use below command to see the help
 #    python3 preprocess.py --help t
+
 
 # Using #%% python magic allows Visual blocks of code to be run in Notebook style in VSS
 # Without having to create a Jupyter Notebook. In other IDEs, this may be ignored as simply as comment
@@ -45,6 +47,7 @@ def parse_args(known=False):
     parser.add_argument('--coco-dir',type=str, default=ROOT / 'data/raw', help='Path to --coco-file. Ignored if path specified in --coco-file')
     parser.add_argument('--inter-dir', type=str, default=ROOT / 'data/interim', help='Path to store interim files' )
     parser.add_argument('--out-dir', type=str, default=ROOT / 'data/processed', help='Path to store interim files' )
+    parser.add_argument('--clean-run', action='store_true', help='Clear previous interim and output directories and generate fresh clean output')
     parser.add_argument('-p','--project', type=str, default='cdetect', help='Name of the project.' )
     parser.add_argument('-v','--verbose', action='store_true')
 
@@ -99,12 +102,26 @@ def main(args):
     interdir = Path(args.inter_dir) / args.project
 
 
+    if args.clean_run and os.path.exists(interdir):
+        verboseprint(f"Emptying directory: {interdir}")
+        shutil.rmtree(interdir)
+    elif os.path.exists(interdir):
+        verboseprint(f"Retaining files from previous runs in: {interdir}")
+
+
     verboseprint(f"Unzipping file: {inzip} to {interdir}")
     os.system(f"unzip -o {inzip} -d {interdir}") #Overwrite the files
-    shutil.move(src=str(interdir / 'train'), dst=str(interdir / 'input'))
+    inputdir = interdir / 'input'
+    traindir = interdir / 'train'
+    if os.path.exists(inputdir):
+        for f in traindir.rglob('*'):
+            dst = str(inputdir / os.path.basename(f))
+            shutil.move(src=f,dst=dst)
+    else:
+        shutil.move(src=str(interdir / 'train'), dst=str(interdir / 'input'))
 
     # Now trim the images
-    trim_images(src=str(interdir / 'input'), dst=str(interdir / 'trim'))
+    trim_images(src=interdir / 'input', dst=interdir / 'trim', clear_dst=args.clean_run)
 
 #%%
 def run(**kwargs):
