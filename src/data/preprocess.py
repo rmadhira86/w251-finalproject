@@ -4,6 +4,7 @@
 #    Location of Zip file that contains a coco formatted file generated typically from roboflow
 #    The zip file should contain _annotations file and all images.
 
+
 # Happy path, simple runs:
 # 1. Download a zip file from roboflow into data/raw as a zip file
 # 2. Run Either of the below. Remove to --verbose or -v to remove verbose prints
@@ -15,6 +16,7 @@
 # Most other options provide options to override default locations of files and some run options
 # Use below command to see the help
 #    python3 preprocess.py --help t
+
 
 # Using #%% python magic allows Visual blocks of code to be run in Notebook style in VSS
 # Without having to create a Jupyter Notebook. In other IDEs, this may be ignored as simply as comment
