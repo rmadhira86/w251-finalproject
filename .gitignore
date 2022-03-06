@@ -57,12 +57,13 @@ docs/_build/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-!data/.gitkeep
-!data/external/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-!data/raw/.gitkeep
-data/
+!/data/.gitkeep
+!/data/README.md
+!/data/external/.gitkeep
+!/data/interim/.gitkeep
+!/data/processed/.gitkeep
+!/data/raw/.gitkeep
+/data/
 
 # Mac OS-specific storage files
 .DS_Store
