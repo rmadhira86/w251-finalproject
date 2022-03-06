@@ -4,6 +4,7 @@
 #    Location of Zip file that contains a coco formatted file generated typically from roboflow
 #    The zip file should contain _annotations file and all images.
 
+<<<<<<< HEAD
 # Happy path, simple runs:
 # 1. Download a zip file from roboflow into data/raw as a zip file
 # 2. Run Either of the below. Remove to --verbose or -v to remove verbose prints
@@ -16,6 +17,8 @@
 # Use below command to see the help
 #    python3 preprocess.py --help t
 
+=======
+>>>>>>> 383d5945ba89c4f15676d8d7eaf1e40306825275
 # Using #%% python magic allows Visual blocks of code to be run in Notebook style in VSS
 # Without having to create a Jupyter Notebook. In other IDEs, this may be ignored as simply as comment
 #%%
@@ -52,12 +55,18 @@ def parse_args(known=False):
     return args
 
 #%%
+<<<<<<< HEAD
 def trim_images(src, dst, clear_dst=False):
     if not os.path.exists(dst):
         os.mkdir(dst)
     elif clear_dst:
         os.remove(Path(dst)/ '*')
 
+=======
+def trim_images(src, dst):
+    if not os.path.exists(dst):
+        os.mkdir(dst)
+>>>>>>> 383d5945ba89c4f15676d8d7eaf1e40306825275
     with open(str(Path(src) / '_annotations.coco.json')) as f:
         annots = json.load(f)
     images = annots['images']
