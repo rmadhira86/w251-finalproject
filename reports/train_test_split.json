@@ -1,0 +1,204 @@
+{
+   "train": {
+      "keys": 106,
+      "images": 136,
+      "ids": 106,
+      "normal": {
+         "keys": 42,
+         "images": 51,
+         "ids": {
+            "R_2YzxU8PRG67wpiX": 1,
+            "R_3kNtn0WskXAjXLl": 1,
+            "R_3hb8rpPYSj5sOhI": 1,
+            "R_1dfXGno0gvY16dW": 1,
+            "R_8J4qzoYXDO9CTpD": 1,
+            "R_OGYjcHTtb2MR2NP": 1,
+            "R_3JyoZW4DWea9M0O": 1,
+            "R_vpLYwUqW7mLyttn": 2,
+            "R_1hyACvhRKJlmD9X": 1,
+            "R_3I5fyXtmCgzo5vR": 1,
+            "R_2CprkDbhSZTh65B": 3,
+            "R_sbssr8AnKrqcPfz": 1,
+            "R_UgAqBPzsz0PRYpH": 1,
+            "R_qU8k0Pr6MofGTkt": 1,
+            "R_1ouNSYTmyoPQ4ZE": 2,
+            "R_Xv9TSuh1xqPapQl": 1,
+            "R_2saUBmp93M4ZiR5": 1,
+            "R_3j2GBKYCsgk9vdp": 1,
+            "R_2pVjJgmmqONsVZ4": 1,
+            "R_2AWMyg1254qhjbm": 1,
+            "R_31pIGfSeWjK52yI": 1,
+            "R_2bJnA8aivsXTeKU": 1,
+            "R_1laQBTfNszXp3kG": 1,
+            "R_6JY14vKUBaNwo49": 1,
+            "R_2YrGlVfiNpFAz2H": 1,
+            "R_10vi04lh64FGSvp": 1,
+            "R_1P7Ds55gFHWBsAe": 3,
+            "R_1kGJnONZ6mt1B66": 1,
+            "R_2EddYj9gFteqLHD": 1,
+            "R_2SIESJm89yGW9cp": 1,
+            "R_2ah14tKnPddsIWB": 1,
+            "R_bE4aflIy89fy8vf": 1,
+            "R_2Se2TYqRxFRc8jD": 3,
+            "R_3KIM2APSzWp3DkC": 1,
+            "R_1CyCqG17VY26lRU": 1,
+            "R_12JQheYe68Gad2a": 1,
+            "R_3LiN1UxNAVG42e4": 1,
+            "R_31pB9W7t53CMnvl": 2,
+            "R_32X6bqC80NZ7QQK": 1,
+            "R_3PZVRLB4R4AH4lT": 1,
+            "R_3lRoIswraxSstMu": 1,
+            "R_a3l0EOX0hO0QROx": 1
+         }
+      },
+      "bacterial": {
+         "keys": 39,
+         "images": 33,
+         "ids": {
+            "R_3Hi6fqbH4Hlo72N": 0,
+            "R_3MrigfEmDAx3Ucm": 0,
+            "R_3DvvwcrwZBnmwic": 1,
+            "R_3KE1zXGukjrwMnh": 1,
+            "R_2A0jtC0gMWF8sr4": 1,
+            "R_3G7IyHamnryCmwW": 1,
+            "R_9QqnEvhYhxNhSox": 1,
+            "R_eM9wE1iUPpfWZjz": 1,
+            "R_3PpEu0aTlws6NsO": 1,
+            "R_3GqUtrPELg7oCrF": 1,
+            "R_TaZ2QQ2WMb3y8r7": 0,
+            "R_Rylt071gaTViK4x": 1,
+            "R_3ikGjjqh9fwI4VQ": 0,
+            "R_1QrpJkzv9HWElJb": 1,
+            "R_3GANCSdkPpHxwSp": 1,
+            "R_3EbB6NH65N1qZdg": 1,
+            "R_264PaR4NXZ2D8Jc": 1,
+            "R_3m4zjQhXEFjfpfG": 1,
+            "R_3EgaOaEaUQwAdr8": 0,
+            "R_2q1PvwM4EQuvQg6": 1,
+            "R_22mi0DezYnClZNd": 1,
+            "R_5cqEpjhX4qLp4sN": 0,
+            "R_XMpW9VquCSMrxkJ": 1,
+            "R_32Yi86YZTH1cw26": 0,
+            "R_1M6D34cnNSHvb1d": 2,
+            "R_1eVRuTGpK5fCNtb": 1,
+            "R_3f3OGBUoSr0w3dv": 1,
+            "R_b3leKFOULI32qzL": 1,
+            "R_3ek0NZays7zo326": 1,
+            "R_2a9MExLd13dgPFE": 1,
+            "R_33a52Bjv3AreGMg": 1,
+            "R_DOHaE6qdpqQ2rXb": 1,
+            "R_3IS2fo16e6GpcKp": 1,
+            "R_1K1lquwDIj8iEpe": 1,
+            "R_OKnyQW3awODWwiR": 1,
+            "R_23ZtwoTQKSptyVL": 1,
+            "R_3EQJcE64A0hRFw8": 1,
+            "R_1LkxHXLjQEjLfTL": 1,
+            "R_22meqsJrPplCuyq": 1
+         }
+      },
+      "covid": {
+         "keys": 25,
+         "images": 52,
+         "ids": {
+            "R_32QmzEehlIFCqgd": 1,
+            "R_3m7B1D8GV2bDOu6": 2,
+            "R_1CwPCqYEGxeiu3r": 3,
+            "R_1Edo9YnF1LbcDmv": 2,
+            "R_1i3aduIIWZoLF4L": 3,
+            "R_2zBBLidCt9Jnb2x": 1,
+            "R_231yloxoQGqlXHW": 1,
+            "R_T7w37nXgeNXUSyd": 1,
+            "R_1pAtJe1kl5hUBpN": 2,
+            "R_1iqTaXsBqJXs2Fh": 3,
+            "R_3q9jAag5MjL9c3q": 3,
+            "R_2rGb2rlY0M1mc6a": 3,
+            "R_2EcQE0GzNoSz1FR": 1,
+            "R_3PzzY6UcKg5kGZB": 3,
+            "R_3kM71iUvFYeztLU": 3,
+            "R_3qItvEdf78V1KjB": 2,
+            "R_WwBuk2tBdPkJIiJ": 2,
+            "R_3kGq99Y06hzhlqj": 3,
+            "R_1Lqvpr7F5EYW06b": 1,
+            "R_2dgWEtF5yQOVzmR": 1,
+            "R_3fxauJqQ7rTzQ8q": 2,
+            "R_114rz6JiHw1akAz": 3,
+            "R_8dgQBMZug4MXF0B": 2,
+            "R_3kziuzsxwGJNUi8": 2,
+            "R_2D22U9Q52vKpqGx": 2
+         }
+      }
+   },
+   "val": {
+      "keys": 13,
+      "images": 20,
+      "ids": 13,
+      "bacterial": {
+         "keys": 5,
+         "images": 5,
+         "ids": {
+            "R_3PnPgEKzCLUCun7": 1,
+            "R_1jiyz2CQYPDKcPS": 1,
+            "R_1JLUvnDp19TsIfg": 1,
+            "R_1joCAO3e3GJpWsV": 1,
+            "R_1Nku5oxjalz9Req": 1
+         }
+      },
+      "normal": {
+         "keys": 5,
+         "images": 9,
+         "ids": {
+            "R_2R93EL0uzHCe73p": 3,
+            "R_x431CM3DefSSgXn": 1,
+            "R_3FOOn2TxYRQfBiY": 1,
+            "R_2xDgJxemZBVE1ML": 3,
+            "R_2UaRXaHCKsJDxMg": 1
+         }
+      },
+      "covid": {
+         "keys": 3,
+         "images": 6,
+         "ids": {
+            "R_0dE4arEYyn9VJOV": 1,
+            "R_ymVohcvJp63lTRT": 3,
+            "R_3MRQFPs4B2gDfLI": 2
+         }
+      }
+   },
+   "test": {
+      "keys": 14,
+      "images": 16,
+      "ids": 14,
+      "bacterial": {
+         "keys": 5,
+         "images": 5,
+         "ids": {
+            "R_6lmXYExiHBEPUat": 1,
+            "R_3ffrggJOXKHOfhg": 1,
+            "R_ZC8Yn4FKmn8m4Rr": 1,
+            "R_psEraLTj7t1old7": 1,
+            "R_SCxM86rK40qD18l": 1
+         }
+      },
+      "normal": {
+         "keys": 6,
+         "images": 6,
+         "ids": {
+            "R_eJKppyBX8KdB3wZ": 1,
+            "R_1LScBGeovnBR8iP": 1,
+            "R_3PYQLxakIYT3l9n": 1,
+            "R_2b11TvS59FvXRtx": 1,
+            "R_Djx48P9Ms3P3tGp": 1,
+            "R_24ipaIKCMu1Ukhg": 1
+         }
+      },
+      "covid": {
+         "keys": 3,
+         "images": 5,
+         "ids": {
+            "R_3e4fwzKBBZalDMB": 1,
+            "R_A7pjhRvGvSRCDjr": 1,
+            "R_22n1sxr0TXT3nk1": 3
+         }
+      }
+   }
+}
