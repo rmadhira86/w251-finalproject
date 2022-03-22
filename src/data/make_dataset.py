@@ -95,11 +95,16 @@ def move_images(df, label_col,key_col, source_dir, out_dir):
     return log
 
 #%%
-def process_dataset(args,traindir, valdir, testdir):
+def process_dataset(args,outdir):
     """ Unzip all the input coco files and trim the files. 
     """
     LABEL_COL = 'd_dx'
     KEY_COL = 'ResponseId'
+
+    traindir = outdir / 'train'
+    valdir = outdir / 'val'
+    testdir = outdir / 'test'
+
     infile = Path(args.survey_dir / args.survey_file) if os.path.basename(args.survey_file) == args.survey_file else args.survey_file
 
     verboseprint(f"Reading file: {infile}")
@@ -107,6 +112,8 @@ def process_dataset(args,traindir, valdir, testdir):
     
     df = pd.read_csv(infile, header=0, skiprows=[1,2])
     verboseprint(df.columns)
+
+    df.to_csv(outdir/'data_original.csv', index=False)
 
     # EDA Should be done here
 
@@ -152,11 +159,9 @@ def main(args):
 
     verboseprint(f"Running with args: {args}")
     outdir = Path(args.out_dir) / args.project
-    traindir = outdir / 'train'
-    valdir = outdir / 'val'
-    testdir = outdir / 'test'
 
-    results = process_dataset(args, traindir, valdir, testdir)
+
+    results = process_dataset(args, outdir)
     print_dict(results, f=ROOT / 'reports/train_test_split.json')
 
 

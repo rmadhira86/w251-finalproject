@@ -44,11 +44,11 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative from current working 
 def parse_args(known=False):
     parser = argparse.ArgumentParser('Data Preprocessor')
     parser.add_argument('-f','--coco-file',type=str, help='Zipfile containing annotations and images.')
-    parser.add_argument('--coco-dir',type=str, default=ROOT / 'data/raw', help='Path to --coco-file. Ignored if path specified in --coco-file')
-    parser.add_argument('--inter-dir', type=str, default=ROOT / 'data/interim', help='Path to store interim files' )
-    parser.add_argument('--out-dir', type=str, default=ROOT / 'data/processed', help='Path to store interim files' )
-    parser.add_argument('--clean-run', action='store_true', help='Clear previous interim and output directories and generate fresh clean output')
     parser.add_argument('-p','--project', type=str, default='cdetect', help='Name of the project.' )
+    parser.add_argument('--source-dir',type=str, default=ROOT / 'data/raw', help='Path to --coco-file. Ignored if path specified in --coco-file')
+    parser.add_argument('--inter-dir', type=str, default=ROOT / 'data/interim', help='Path to store interim files' )
+    parser.add_argument('--out-dir', type=str, default=ROOT / 'data/processed', help='Path to store processed files' )
+    parser.add_argument('--clean-run', action='store_true', help='Clear previous interim and output directories and generate fresh clean output')
     parser.add_argument('-v','--verbose', action='store_true')
 
     args = parser.parse_known_args()[0] if known else parser.parse_args() #This line is useful when debugging in VSCode, since VSCode sends additional parameters
@@ -56,6 +56,10 @@ def parse_args(known=False):
 
 #%%
 def trim_images(src, dst, clear_dst=False):
+    """ Process images from src, and based on _annotations.coco.json specs
+        trim the images to the boxes specified in annotations file and place them in the dest folder
+        If clear_dst is True, removes all files from dst folder before placing new files.
+    """
     if not os.path.exists(dst):
         os.mkdir(dst)
     elif clear_dst:
@@ -84,23 +88,16 @@ def trim_images(src, dst, clear_dst=False):
     # verboseprint(bboxes)
 #%%
 def setprint(verbose=False):
+    """ Print to console if verbose is True, else do nothing. 
+    """
     global verboseprint 
     verboseprint = print if verbose else lambda *a, **k: None
 
 #%%
-def main(args):
-    setprint(args.verbose)
-
-    #PDL (Program Design Language):
-    #   Unzip the file into interim folder
-    #   Since the train folder from roboflow is not just train, rename to input
-    #   Trim them up based on bounding boxes specified in the annotations
-
-
-    verboseprint(f"Running with args: {args}")
+def process_images(args,interdir, inputdir, traindir, trimdir):
+    """ Unzip all the input coco files and trim the files. 
+    """
     inzip = Path(args.coco_dir / args.coco_file) if os.path.basename(args.coco_file) == args.coco_file else args.coco_file
-    interdir = Path(args.inter_dir) / args.project
-
 
     if args.clean_run and os.path.exists(interdir):
         verboseprint(f"Emptying directory: {interdir}")
@@ -111,17 +108,36 @@ def main(args):
 
     verboseprint(f"Unzipping file: {inzip} to {interdir}")
     os.system(f"unzip -o {inzip} -d {interdir}") #Overwrite the files
-    inputdir = interdir / 'input'
-    traindir = interdir / 'train'
     if os.path.exists(inputdir):
         for f in traindir.rglob('*'):
             dst = str(inputdir / os.path.basename(f))
             shutil.move(src=f,dst=dst)
     else:
-        shutil.move(src=str(interdir / 'train'), dst=str(interdir / 'input'))
+        shutil.move(src=str(traindir), dst=str(inputdir))
+    os.rmdir(traindir)
 
     # Now trim the images
-    trim_images(src=interdir / 'input', dst=interdir / 'trim', clear_dst=args.clean_run)
+    trim_images(src=inputdir, dst=trimdir, clear_dst=args.clean_run)
+
+#%%
+def main(args):
+
+    setprint(args.verbose) 
+
+    #PDL (Program Design Language):
+    #   Unzip the file into interim folder
+    #   Since the train folder from roboflow is not just train, rename to input
+    #   Trim them up based on bounding boxes specified in the annotations
+
+
+    verboseprint(f"Running with args: {args}")
+    interdir = Path(args.inter_dir) / args.project
+    inputdir = interdir / 'input'
+    traindir = interdir / 'train'
+    trimdir = interdir / 'trim'
+
+    if args.coco_file is not None:
+        process_images(args,interdir=interdir,inputdir=inputdir, traindir=traindir,trimdir=trimdir)
 
 #%%
 def run(**kwargs):
@@ -143,6 +159,8 @@ if __name__ == "__main__":
     args = parse_args(True) 
     main(args)
 
+# Example use for default options
+# python3 preprocess.py --coco-file w251_final_project_throat_detector.v1-v1.coco.zip --clean-run --verbose
 
 # %%
 
