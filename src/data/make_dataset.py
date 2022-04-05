@@ -9,13 +9,17 @@
 # Using #%% python magic allows Visual blocks of code to be run in Notebook style in VSS
 # Without having to create a Jupyter Notebook. In other IDEs, this may be ignored as simply as comment
 #%%
+import albumentations as A
+import cv2 
 import os
 import sys
 import shutil
 import argparse
 import json
+from matplotlib import pyplot as plt
+import numpy as np
 import pandas as pd 
-from PIL import Image #PIL is installed with pip install Pillow
+# from PIL import Image #PIL is installed with pip install Pillow
 from pathlib import Path
 from tqdm import tqdm 
 from sklearn.model_selection import train_test_split
@@ -24,6 +28,7 @@ from sklearn.model_selection import train_test_split
 # Determine the current path and add project folder and src into the syspath 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[2]  # Project src directory.
+RANDOM_SEED = 200
 
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
@@ -35,7 +40,7 @@ def parse_args(known=False):
     parser = argparse.ArgumentParser('Train Val Test Split')
     parser.add_argument('-f','--survey-file',type=str, help='Survey file containing metadata')
     parser.add_argument('-p','--project', type=str, default='cdetect', help='Name of the project.' )
-    parser.add_argument('--survey-dir',type=str, default=ROOT / 'data/raw', help='Path to source survey-file from. Ignored if survey-file has path')
+    parser.add_argument('--survey-dir',type=str, default=ROOT / 'data/interim/cdetect', help='Path to source survey-file from. Ignored if survey-file has path')
     parser.add_argument('--source-dir',type=str, default=ROOT / 'data/interim/cdetect/trim', help='Path to source images from')
     parser.add_argument('--out-dir', type=str, default=ROOT / 'data/processed', help='Path to store processed files' )
     parser.add_argument('--split_size', type=float, nargs=3, default=[0.8,0.1,0.1], help='Proportion of train_val_test to split data into. All three values must be specfied. default:[0.8,0.1,0.1]')
@@ -67,6 +72,7 @@ def move_images(df, label_col,key_col, source_dir, out_dir):
         shutil.rmtree(out_dir)
     labels = df[label_col].unique()
     log = {}
+    log['dir'] = str(out_dir)
     log['keys'] = 0
     log['images'] = 0
     log['ids'] = 0
@@ -130,21 +136,155 @@ def process_dataset(args,outdir):
     # But for now, go ahead and split the dataset.
     train, val, test = args.split_size
     stratify = df[[LABEL_COL]] if args.stratify else None 
-    df_train, df_val = train_test_split(df, test_size=val+test, stratify=stratify)
+    df_train, df_val = train_test_split(df, test_size=val+test, stratify=stratify, random_state=RANDOM_SEED)
     if test > 0:
         stratify = df_val[[LABEL_COL]] if args.stratify else None 
         df_val, df_test = train_test_split(df_val, test_size=round(test/(val+test),2), stratify=stratify)
     else:
         df_test = pd.DataFrame()
+
     results = {}
     log_train = move_images(df_train, LABEL_COL, KEY_COL, args.source_dir, traindir)
+    df_train.to_csv(traindir/'data_train.csv', index=False)
     log_val = move_images(df_val, LABEL_COL, KEY_COL, args.source_dir, valdir)
+    df_val.to_csv(valdir/'data_val.csv', index=False)
     log_test = move_images(df_test, LABEL_COL, KEY_COL, args.source_dir, testdir)
+    df_test.to_csv(testdir/'data_test.csv', index=False)
+
     results['train'] = log_train
     results['val'] = log_val
     results['test'] = log_test
+
     return results
 
+#%%
+# Wrapper functions since CV2 gives and expects images in BGR and albumentations works with RGB
+def get_image(infile):
+    verboseprint(f"Reading image {infile}")
+    img = cv2.imread(infile)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    return img
+
+def write_image(outfile, img, max_size=120):
+    if len(outfile) > max_size:
+        outdir = os.path.dirname(outfile)
+        f_name, f_ext = os.path.splitext(os.path.basename(outfile))
+        f_basename, f_ext2 = os.path.splitext(f_name)
+        f_newext2 = f_ext2[(len(outfile)-max_size):]
+        outfile2 = outdir + f_basename + f_newext2 + f_ext 
+        verboseprint(f"Changed file {outfile} to {outfile2}")
+        outfile = outfile2   
+    cv2.imwrite(outfile, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+#%%
+def augment_images(indir, outdir_compose, outdir_all=None):
+    # Augments images with a set of image augmentations using the albumentations library
+    # Writes the original + composite image from augmentation pipeline into the outdir_compose folder. 
+    # Writes the original + composite image + images for each augmentation into outdir_all folder. 
+   
+    verboseprint(f"Processing {indir} into {outdir_compose} and {outdir_all}")
+    # Specify the augmentations to use to run an augmentation pipeline and create a composite image
+    aug_titles = ['Original','Composed']
+    augCompose = A.Compose([
+            A.SmallestMaxSize(max_size=350),
+            A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=360, p=0.5),
+            A.RandomCrop(height=256, width=256),
+            A.RGBShift(r_shift_limit=15, g_shift_limit=15, b_shift_limit=15, p=0.5),
+            A.MultiplicativeNoise(multiplier=[0.5,2], per_channel=True, p=0.2),
+            A.HueSaturationValue(hue_shift_limit=0.2, sat_shift_limit=0.2, val_shift_limit=0.2, p=0.5),
+            A.RandomBrightnessContrast(brightness_limit=(-0.1,0.1), contrast_limit=(-0.1, 0.1), p=0.5)])
+    
+    # Specify the augmentations to individual process and add.
+    # This need not be the same as the augCompose argument above. Also, please ensure that always_apply is True
+    # Sometimes you may need to apply processing like resizing images before and / or after applying an augmentation
+    #   In those cases specify the aug_prefix and aug_suffix augmentations
+    aug_prefix = [A.SmallestMaxSize(max_size=350)]
+    aug_titles += ['ShiftScaleRotate','RandomCorp','RGBShift','MultNoise','HueSat','RandBrightCont']        
+    aug_list = [
+            A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=360, always_apply=True),
+            A.RandomCrop(height=256, width=256, always_apply=True),
+            A.RGBShift(r_shift_limit=15, g_shift_limit=15, b_shift_limit=15, always_apply=True),
+            A.MultiplicativeNoise(multiplier=[0.5,2], per_channel=True, always_apply=True),
+            A.HueSaturationValue(hue_shift_limit=0.2, sat_shift_limit=0.2, val_shift_limit=0.2, always_apply=True),
+            A.RandomBrightnessContrast(brightness_limit=(-0.1,0.1), contrast_limit=(-0.1, 0.1), always_apply=True)]
+    aug_suffix = []
+
+    if not os.path.isdir(indir):
+        raise ValueError(f"indir directory {indir} does not exist")
+    
+    if outdir_compose and os.path.exists(outdir_compose):
+        verboseprint(f"Emptying directory: {outdir_compose}")
+        shutil.rmtree(outdir_compose)
+    if outdir_all and os.path.exists(outdir_all):
+        verboseprint(f"Emptying directory: {outdir_all}")
+        shutil.rmtree(outdir_all)
+    image_paths = []
+    for path, subdirs, files in tqdm(os.walk(indir)):
+        for filename in files:
+            in_fname = os.path.join(path,filename)
+            f_name, f_ext = os.path.splitext(filename)
+            outsubdir = path.replace(str(indir),'')
+            if outdir_compose:
+                outdir = str(outdir_compose) + outsubdir
+                os.makedirs(outdir,exist_ok=True)
+            if outdir_all:
+                outdir = str(outdir_all) + outsubdir
+                os.makedirs(outdir,exist_ok=True)
+
+            if f_ext in ['.jpg','.png','.jpeg']:
+                img = get_image(in_fname)
+                this_img_paths = [in_fname]
+
+                aug_img = augCompose(image = img)
+
+                if outdir_compose:
+                    out_file = os.path.join(outdir,f_name +f_ext)
+                    write_image(out_file, img)
+                    out_file = os.path.join(outdir,f_name + '_' + aug_titles[1] +f_ext)
+                    write_image(out_file, aug_img['image'])
+
+                    this_img_paths.append(out_file)
+    
+                if outdir_all:
+                    # Both original and Composed files must also be copied
+                    out_file = os.path.join(outdir,f_name +f_ext)
+                    write_image(out_file, img)
+                    out_file = os.path.join(outdir,f_name + '_' + aug_titles[1] +f_ext)
+                    write_image(out_file, aug_img['image'])
+
+                    for i, aug in enumerate(aug_list):
+                        augC = A.Compose(aug_prefix + [aug] + aug_suffix)
+                        augi_img = augC(image= img)
+                        out_file = os.path.join(outdir,f_name + '_' + aug_titles[i+2] + f_ext)
+                        write_image(out_file, augi_img['image'])
+                        this_img_paths.append(out_file)
+                image_paths.append(this_img_paths)
+            else:
+                if outdir_compose:
+                    outdir = str(outdir_compose) + outsubdir
+                    shutil.copy(str(in_fname), os.path.join(outdir,filename))
+                if outdir_all:
+                    outdir = str(outdir_all) + outsubdir
+                    shutil.copy(str(in_fname), os.path.join(outdir,filename))
+
+    return image_paths
+
+def copy_folders(indir, outdir_compose, outdir_all):
+
+    verboseprint(f"Processing {indir} into {outdir_compose} and {outdir_all}")
+
+    if not os.path.isdir(indir):
+        raise ValueError(f"indir directory {indir} does not exist")
+    
+    if outdir_compose and os.path.exists(outdir_compose):
+        verboseprint(f"Emptying directory: {outdir_compose}")
+        shutil.rmtree(outdir_compose)
+    if outdir_all and os.path.exists(outdir_all):
+        verboseprint(f"Emptying directory: {outdir_all}")
+        shutil.rmtree(outdir_all)
+    if outdir_compose:
+        shutil.copytree(str(indir), str(outdir_compose))
+    if outdir_all:
+        shutil.copytree(str(indir), str(outdir_all))
 
 #%%
 def main(args):
@@ -160,9 +300,22 @@ def main(args):
     verboseprint(f"Running with args: {args}")
     outdir = Path(args.out_dir) / args.project
 
-
     results = process_dataset(args, outdir)
     print_dict(results, f=ROOT / 'reports/train_test_split.json')
+
+    # Validation and Test images are typically not augmented using these techniques
+    # Augmentations like converting to Tensor will be done in the main pipeline
+    outdir_compose = Path(args.out_dir) / f"{args.project}_compose" 
+    outdir_all = Path(args.out_dir) / f"{args.project}_all" 
+    augment_images(indir = outdir / 'train', outdir_compose = outdir_compose / 'train', outdir_all= outdir_all / 'train')
+
+    copy_folders(indir = outdir / 'val', 
+                outdir_compose = outdir_compose / 'val', 
+                outdir_all = outdir_all / 'val')
+
+    copy_folders(indir = outdir / 'test', 
+                outdir_compose = outdir_compose / 'test', 
+                outdir_all = outdir_all / 'test')
 
 
 #%%
