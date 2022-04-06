@@ -58,7 +58,7 @@ def setprint(verbose=False):
     global verboseprint 
     verboseprint = print if verbose else lambda *a, **k: None
 
-def print_dict(d, indent=3, f=None, display=True):
+def print_obj(d, indent=3, f=None, display=True):
     d_dumps = json.dumps(d, indent=indent)
     if f:
         with open(Path(f),'w') as fp:
@@ -171,10 +171,11 @@ def write_image(outfile, img, max_size=120):
         f_name, f_ext = os.path.splitext(os.path.basename(outfile))
         f_basename, f_ext2 = os.path.splitext(f_name)
         f_newext2 = f_ext2[(len(outfile)-max_size):]
-        outfile2 = outdir + f_basename + f_newext2 + f_ext 
+        outfile2 = os.path.join(outdir, f_basename + f_newext2 + f_ext) 
         verboseprint(f"Changed file {outfile} to {outfile2}")
         outfile = outfile2   
     cv2.imwrite(outfile, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+    return outfile
 #%%
 def augment_images(indir, outdir_compose, outdir_all=None):
     # Augments images with a set of image augmentations using the albumentations library
@@ -223,13 +224,6 @@ def augment_images(indir, outdir_compose, outdir_all=None):
             in_fname = os.path.join(path,filename)
             f_name, f_ext = os.path.splitext(filename)
             outsubdir = path.replace(str(indir),'')
-            if outdir_compose:
-                outdir = str(outdir_compose) + outsubdir
-                os.makedirs(outdir,exist_ok=True)
-            if outdir_all:
-                outdir = str(outdir_all) + outsubdir
-                os.makedirs(outdir,exist_ok=True)
-
             if f_ext in ['.jpg','.png','.jpeg']:
                 img = get_image(in_fname)
                 this_img_paths = [in_fname]
@@ -237,33 +231,49 @@ def augment_images(indir, outdir_compose, outdir_all=None):
                 aug_img = augCompose(image = img)
 
                 if outdir_compose:
-                    out_file = os.path.join(outdir,f_name +f_ext)
-                    write_image(out_file, img)
-                    out_file = os.path.join(outdir,f_name + '_' + aug_titles[1] +f_ext)
-                    write_image(out_file, aug_img['image'])
+                    outdir = str(outdir_compose) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
+                    verboseprint(f"Outdir: {outdir}")
 
+                    out_file = os.path.join(str(outdir),f_name +f_ext)
+                    out_file = write_image(out_file, img)
+                    this_img_paths.append(out_file)
+
+                    out_file = os.path.join(str(outdir),f_name + '_' + aug_titles[1] +f_ext)
+                    verboseprint(f"Out_file: {out_file}")
+                    out_file = write_image(out_file, aug_img['image'])
                     this_img_paths.append(out_file)
     
                 if outdir_all:
+                    outdir = str(outdir_all) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
                     # Both original and Composed files must also be copied
+                    outsubdir = path.replace(str(indir),'')
+                    outdir = str(outdir_all) + outsubdir
+
                     out_file = os.path.join(outdir,f_name +f_ext)
-                    write_image(out_file, img)
+                    out_file = write_image(out_file, img)
+                    this_img_paths.append(out_file)
+
                     out_file = os.path.join(outdir,f_name + '_' + aug_titles[1] +f_ext)
-                    write_image(out_file, aug_img['image'])
+                    out_file = write_image(out_file, aug_img['image'])
+                    this_img_paths.append(out_file)
 
                     for i, aug in enumerate(aug_list):
                         augC = A.Compose(aug_prefix + [aug] + aug_suffix)
                         augi_img = augC(image= img)
                         out_file = os.path.join(outdir,f_name + '_' + aug_titles[i+2] + f_ext)
-                        write_image(out_file, augi_img['image'])
+                        out_file = write_image(out_file, augi_img['image'])
                         this_img_paths.append(out_file)
                 image_paths.append(this_img_paths)
             else:
                 if outdir_compose:
                     outdir = str(outdir_compose) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
                     shutil.copy(str(in_fname), os.path.join(outdir,filename))
                 if outdir_all:
                     outdir = str(outdir_all) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
                     shutil.copy(str(in_fname), os.path.join(outdir,filename))
 
     return image_paths
@@ -301,13 +311,14 @@ def main(args):
     outdir = Path(args.out_dir) / args.project
 
     results = process_dataset(args, outdir)
-    print_dict(results, f=ROOT / 'reports/train_test_split.json')
+    print_obj(results, f=ROOT / 'reports/train_test_split.json')
 
     # Validation and Test images are typically not augmented using these techniques
     # Augmentations like converting to Tensor will be done in the main pipeline
     outdir_compose = Path(args.out_dir) / f"{args.project}_compose" 
     outdir_all = Path(args.out_dir) / f"{args.project}_all" 
-    augment_images(indir = outdir / 'train', outdir_compose = outdir_compose / 'train', outdir_all= outdir_all / 'train')
+    aug_files = augment_images(indir = outdir / 'train', outdir_compose = outdir_compose / 'train', outdir_all= outdir_all / 'train')
+    print_obj(aug_files, f=ROOT / 'reports/augmented_files.json')
 
     copy_folders(indir = outdir / 'val', 
                 outdir_compose = outdir_compose / 'val', 
