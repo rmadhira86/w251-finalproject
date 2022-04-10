@@ -322,7 +322,7 @@ def get_xy(f_name, df_cnn, cough=True, race=False, colnames=None):
     # X_train, y_train, colnames = get_xy(f_name=<train_file_path>, df_cnn=<data_frame from cnn result>)
     # X_val,y_val, _ = get_xy(fname=<val_file_path>, , df_cnn=<data_frame from cnn result>, colnames=colnames)
     df = pd.read_csv(f_name)
-    df = df.replace({'d_dx':{"normal":0,"bacterial":1,"covid":2}})
+    df = df.replace({'d_dx':{"bacterial":0,"covid":1,"normal":2}})
 
     df_race = df['d_race'].str.get_dummies().add_prefix("d_race_")
     df_race.columns = [c.lower().replace(" ","") for c in df_race.columns]
