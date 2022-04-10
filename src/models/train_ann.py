@@ -94,7 +94,12 @@ def main(args):
         best_acc = max(acc, best_acc)
         best_epoch = epoch +1 if is_best else best_epoch
 
-        save_checkpoint(args, epoch, NUM_CLASSES, is_best, best_acc, best_epoch, model, optimizer, sc)
+        save_checkpoint(args, 
+                epoch, 
+                NUM_CLASSES, 
+                is_best, best_acc, best_epoch, 
+                model, optimizer, 
+                sc, colnames)
 
         epoch_time = datetime.timedelta(seconds = time.time() - epoch_start)
         avg_epoch_time = datetime.timedelta(seconds = (time.time() - start_time)/(epoch + 1))
@@ -197,7 +202,7 @@ def validate(val_loader, model, criterion, epoch):
 
     return accuracies.avg
 
-def save_checkpoint(args, epoch, num_classes, is_best, best_acc, best_epoch, model, optimizer, scaler):
+def save_checkpoint(args, epoch, num_classes, is_best, best_acc, best_epoch, model, optimizer, scaler, colnames):
     filename = args.project + '_ann_checkpoint.pth.tar'
     best_file = args.project + '_ann_model_best.pth.tar'
     if args.model_dir:
@@ -214,7 +219,8 @@ def save_checkpoint(args, epoch, num_classes, is_best, best_acc, best_epoch, mod
         'best_acc' : best_acc,
         'best_epoch' : best_epoch,
         'optimizer' : optimizer.state_dict(),
-        'scaler' : pickle.dumps(scaler)
+        'scaler' : pickle.dumps(scaler),
+        'colnames': colnames
     }
     torch.save(model_state, filename)
     if is_best:
@@ -431,5 +437,5 @@ def run(**kwargs):
 if __name__ == "__main__":
     #Required when running in interactive session. 
     # Should be changed to False before running in batch scripts, otherwise parameters specified with spelling errors may just be ignored
-    args = parse_args(True) 
+    args = parse_args() 
     main(args)
