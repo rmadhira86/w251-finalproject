@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 from functools import reduce
 from sklearn.preprocessing import StandardScaler, RobustScaler
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import random
 import pickle
 import time
@@ -17,6 +18,7 @@ from torch.utils.data import Dataset, DataLoader
 from random import shuffle
 from tqdm import tqdm
 from pathlib import Path
+
 
 #%%
 # Determine the current path and add project folder and src into the syspath 
