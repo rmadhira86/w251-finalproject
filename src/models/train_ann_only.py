@@ -41,13 +41,13 @@ def main(args):
     verboseprint(f"Running with args {args} \on device:{DEVICE}")
 
 
-    df_cnn = pd.read_csv(args.base_dir / args.project / args.cnn_data)
-    df_cnn.rename(columns={'patient_id':'ResponseId'}, inplace=True)
+#    df_cnn = pd.read_csv(args.base_dir / args.project / args.cnn_data)
+#    df_cnn.rename(columns={'patient_id':'ResponseId'}, inplace=True)
 
     proj_dir = args.base_dir / args.project 
-    X_train,y_train, colnames = get_xy(proj_dir / args.train_data, df_cnn)
-    X_val, y_val, _ = get_xy(proj_dir / args.val_data, df_cnn, colnames=colnames)
-    X_test, y_test, _ = get_xy(proj_dir / args.test_data, df_cnn, colnames=colnames)
+    X_train,y_train, colnames = get_xy(proj_dir / args.train_data)
+    X_val, y_val, _ = get_xy(proj_dir / args.val_data, colnames=colnames )
+    X_test, y_test, _ = get_xy(proj_dir / args.test_data, colnames=colnames)
 
     NUM_FEATURES = X_train.shape[1]
     NUM_CLASSES = y_train.max() +1
@@ -203,8 +203,8 @@ def validate(val_loader, model, criterion, epoch):
     return accuracies.avg
 
 def save_checkpoint(args, epoch, num_classes, is_best, best_acc, best_epoch, model, optimizer, scaler, colnames):
-    filename = args.project + '_ann_checkpoint.pth.tar'
-    best_file = args.project + '_ann_model_best.pth.tar'
+    filename = args.project + '_annonly_checkpoint.pth.tar'
+    best_file = args.project + '_annonly_model_best.pth.tar'
     if args.model_dir:
         if not os.path.exists(args.model_dir):
             os.mkdir(args.model_dir)
@@ -275,7 +275,7 @@ def parse_args(known=False):
     parser.add_argument('--train-data', type=str, default='train/data_train.csv', help='File containing Train meta data' )
     parser.add_argument('--val-data', type=str, default='val/data_val.csv', help='File containing Validation meta data' )
     parser.add_argument('--test-data', type=str, default='test/data_test.csv', help='File containing Test meta data' )
-    parser.add_argument('--cnn-data', type=str, default='cnn_output.csv', help='File containing output from CNN training run' )
+#    parser.add_argument('--cnn-data', type=str, default='cnn_output.csv', help='File containing output from CNN training run' )
     parser.add_argument('--base-dir',type=str, default=ROOT / 'data/processed', help='Path under which source data dir resides')
     parser.add_argument('--model-dir',type=str, default=ROOT / 'models', help='Path to save models to')
 
@@ -314,7 +314,7 @@ def setprint(verbose=False):
 
 #%%
 # Load Data and Transform
-def get_xy(f_name, df_cnn, cough=True, race=False, colnames=None):
+def get_xy(f_name, cough=True, race=False, colnames=None):
     # Loads files and converts cough, race to 1-Hot encoding
     # Combines data with result from CNN dataset
     # If colnames is provided (as a List-Like parameter):
@@ -338,17 +338,17 @@ def get_xy(f_name, df_cnn, cough=True, race=False, colnames=None):
     dfs = [df, df_race,df_cough]
     df_res = reduce(lambda left,right: pd.merge(left,right, left_index=True, right_index=True),dfs)
 
-    df_res = df_res.merge(df_cnn, on="ResponseId")
+#    df_res = df_res.merge(df_cnn, on="ResponseId")
 
     y_col = 'd_dx'
-    cnn_cols = [c for c in df_cnn.columns if c.endswith('_score') ]
+#    cnn_cols = [c for c in df_cnn.columns if c.endswith('_score') ]
     race_cols = [c for c in df_race.columns]
     cough_cols = [c for c in df_cough.columns]
     x_cols = ['v_temperature']
     if cough:
          x_cols += cough_cols 
     x_cols = x_cols + ['s_antipyretic','s_odynophagia','s_dysphagia',
-                'd_age','d_gender','d_vacc_status'] + cnn_cols 
+                'd_age','d_gender','d_vacc_status'] 
     if race:
         x_cols += race_cols 
 
