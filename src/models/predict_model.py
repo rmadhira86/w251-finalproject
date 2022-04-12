@@ -208,9 +208,15 @@ def main(args):
     cv2.putText(img, f'CNN:{pred_cnn} with ANN:{pred_ann}',
                 (x1, y1 + 75), cv2.FONT_HERSHEY_SIMPLEX, 3,
                 annot_color, 2)
-    plt.imshow(img)
     cv2.imwrite(args.image_path + '.inference.jpg', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
-    plt.imshow(throat)    
+
+    # Create a custom Window
+    cv2.namedWindow('result', cv2.WINDOW_KEEPRATIO)
+    cv2.imshow('result',cv2.cvtColor(img,cv2.COLOR_RGB2BGR))
+    cv2.resizeWindow('result',300,300)   
+    key = cv2.waitKey(0) 
+    
+    cv2.destroyAllWindows()
 #%%
 def set_args(**kwargs):
     """ Convenience method for running in interactive session
