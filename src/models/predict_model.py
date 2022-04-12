@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import json
+import re
 
 import torch
 import torch.nn as nn
@@ -187,7 +188,7 @@ def main(args):
 
     show_graphs = not args.no_graphs 
     if show_graphs:
-        cv2.namedWindow('inputs', cv2.WINDOW_KEEPRATIO)
+    #    cv2.namedWindow('inputs', cv2.WINDOW_KEEPRATIO)
         cv2.namedWindow('original',cv2.WINDOW_KEEPRATIO)
         cv2.namedWindow('result',cv2.WINDOW_KEEPRATIO)
 
@@ -198,7 +199,13 @@ def main(args):
 
     inputs = {}
     while(True):
-        age, gender, vacc, temp = input("Age Gender [m|f] Vaccines [0-4] Temperature (F): ").split()
+        s = input("Age Gender [m|f] Vaccines [0-4] Temperature (F) or [q]uit: ")
+        s = s.split()
+        if s[0] == 'q':
+            break 
+        if len(s) != 4:
+            continue 
+        age, gender, vacc, temp = s
         cough = input("Cough: [n]none, [d]ry or [w]et: ").lower()
         antipyretic = input("Taking fever medicines [y]es or [n]o: ").lower()
         odynophagia = input("Pain Swallowing [n]one [l]ow [m]edium [h]igh: ").lower()
@@ -219,27 +226,29 @@ def main(args):
         inputs['Dysphagia'] = abbr_dict['s_dysphagia'][dysphagia]
         inputs['Image File'] = imgdict[image_file_id] 
 
-        if show_graphs:
-            bg_img = np.ones(shape=(args.image_size, args.image_size,3), dtype=np.int16)
-            cv2.putText(bg_img, json.dumps(inputs),fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=2, color=(0, 255, 0),thickness=3)
-            cv2.imshow('inputs',bg_img)
-            cv2.moveWindow("inputs", 10, 20)
+#        if show_graphs:
+#            bg_img = np.zeros(shape=(args.image_size, args.image_size,3), dtype=np.int16)
+#            parms = re.sub('["{}]','',json.dumps(inputs)).replace(',','\n') 
+#            cv2.putText(bg_img, parms,(10,50),fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=1, color=(255, 255, 255),thickness=3)
+#            cv2.imshow('inputs',bg_img)
+#            cv2.resizeWindow('inputs',300,300)
+#            cv2.moveWindow("inputs", 10, 20)
     
         img, throat = detect_throat(os.path.join(args.image_dir,imgdict[image_file_id]), args.image_size, model_det)
         # Detect and trim throat from the uploaded image
         if show_graphs:
-            cv2.imshow('`original',img)
+            cv2.imshow('original',cv2.cvtColor(img,cv2.COLOR_RGB2BGR))
             cv2.resizeWindow('original', 300, 300)
-            cv2.moveWindow("original", 400, 20)
+            cv2.moveWindow("original", 350, 100)
 
-            cv2.imshow('result',throat)
+            cv2.imshow('result',cv2.cvtColor(throat,cv2.COLOR_RGB2BGR))
             cv2.resizeWindow('result', 300, 300)
-            cv2.moveWindow("result", 700, 20)
+            cv2.moveWindow("result", 700 , 100 )
     
         pred_cnn = predict_cnn(throat, model_cnn, args.image_size)
         pred_cnn_text = f"CNN:{ids2class['dx'][pred_cnn.detach().cpu().numpy()[0].argmax()]}"
         if show_graphs:
-            cv2.putText(throat,pred_cnn_text , (10,10), cv2.FONT_HERSHEY_SIMPLEX, 3, getColor(pred_cnn),2)
+            cv2.putText(throat,pred_cnn_text , (10,20), cv2.FONT_HERSHEY_SIMPLEX, 1, getColor(pred_cnn),2)
             cv2.imshow('result',throat)
         else:
             print(pred_cnn_text)
@@ -261,8 +270,8 @@ def main(args):
         pred_ann = model_ann(torch.from_numpy(x).float())
         pred_ann_text = f"ANN:{ids2class['dx'][pred_ann.detach().cpu().numpy()[0].argmax()]}"
         if show_graphs:
-            cv2.putText(throat,pred_ann_text , (10,20), cv2.FONT_HERSHEY_SIMPLEX, 3, getColor(pred_cnn),2)
-            cv2.imshow('result',throat)
+            cv2.putText(throat,pred_ann_text , (10,60), cv2.FONT_HERSHEY_SIMPLEX, 1, getColor(pred_cnn),2)
+            cv2.imshow('result',cv2.cvtColor(throat,cv2.COLOR_RGB2BGR))
         else:
             print(pred_ann_text)                
         
