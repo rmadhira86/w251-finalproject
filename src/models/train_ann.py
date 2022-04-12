@@ -9,7 +9,6 @@ from functools import reduce
 from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import random
-import pickle
 import time
 import datetime
 import torch 
@@ -221,7 +220,7 @@ def save_checkpoint(args, epoch, num_classes, is_best, best_acc, best_epoch, mod
         'best_acc' : best_acc,
         'best_epoch' : best_epoch,
         'optimizer' : optimizer.state_dict(),
-        'scaler' : pickle.dumps(scaler),
+        'scaler' : scaler,
         'colnames': colnames
     }
     torch.save(model_state, filename)
