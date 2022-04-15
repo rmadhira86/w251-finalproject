@@ -15,7 +15,7 @@
 
 # Most other options provide options to override default locations of files and some run options
 # Use below command to see the help
-#    python3 preprocess.py --help t
+#    python3 preprocess.py --help 
 
 
 # Using #%% python magic allows Visual blocks of code to be run in Notebook style in VSS
@@ -108,6 +108,8 @@ def process_images(args,interdir, inputdir, traindir, trimdir):
 
     verboseprint(f"Unzipping file: {inzip} to {interdir}")
     os.system(f"unzip -o {inzip} -d {interdir}") #Overwrite the files
+    #  Roboflow generates a folder for train since it has capabilities for performing train/val/test splits
+    # Since we perform our own splits, all data comes into train. Move the files over to the main input folder.
     if os.path.exists(inputdir):
         for f in traindir.rglob('*'):
             dst = str(inputdir / os.path.basename(f))
