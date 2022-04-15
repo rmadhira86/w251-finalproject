@@ -1,0 +1,105 @@
+d_dx,ResponseId,d_age,d_gender,d_vacc_status,d_race,v_temperature,v_cough,s_antipyretic,s_odynophagia,s_dysphagia,t_rtpcr,t_ag,t_med_acetilcistein,t_med_acetoaminophen,t_med_advil,t_med_alprazolam,t_med_amlopine,t_med_antibiotic,t_med_anticoagulant,t_med_antifungal,t_med_antiinflamatory,t_med_antitusigen,t_med_atorvastantine,t_med_atorvastatine,t_med_baricicitinib,t_med_baricitinib,t_med_bariticinib,t_med_bisoproplol,t_med_cough drops,t_med_cough syrup,t_med_dexametasone,t_med_dexametosone,t_med_diclofenaco,t_med_duloxtine,t_med_enalapril,t_med_eritropoietin,t_med_guafenesina,t_med_heparin,t_med_heparine,t_med_iantiviral,t_med_insulin,t_med_insuline,t_med_losartan,t_med_nan,t_med_none,t_med_omeprazole,t_med_retroviral,t_med_telmisartan,t_med_troferit
+bacterial,R_3MrigfEmDAx3Ucm,26,0,0,White,100.2,Wet,1,1,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_32QmzEehlIFCqgd,58,1,0,Other,98.2,Dry,1,2,2,Positive,Pending,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,1
+normal,R_UgAqBPzsz0PRYpH,28,1,0,Other,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3PpEu0aTlws6NsO,58,0,0,Other,100.8,Dry,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_1ouNSYTmyoPQ4ZE,45,1,3,Hispanic ,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+normal,R_sbssr8AnKrqcPfz,68,1,0,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3PnPgEKzCLUCun7,58,0,0,Other,99.5,Dry,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_3q9jAag5MjL9c3q,64,1,3,Other,98.6,Dry,1,0,0,Not taken,Positive,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0
+bacterial,R_Rylt071gaTViK4x,17,1,0,White,99.3,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_114rz6JiHw1akAz,66,0,0,Other,98.4,None,1,0,0,Pending,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_1QrpJkzv9HWElJb,20,1,0,Other,99.3,None,1,1,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3IS2fo16e6GpcKp,19,1,0,Other,99.5,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_1dfXGno0gvY16dW,30,0,0,Other,97.3,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_XMpW9VquCSMrxkJ,47,0,0,Other,99.9,Dry,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_5cqEpjhX4qLp4sN,13,1,0,Other,98.6,Dry,0,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_1LkxHXLjQEjLfTL,17,1,0,Other,100.8,None,0,2,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_3FOOn2TxYRQfBiY,24,1,0,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_1Lqvpr7F5EYW06b,36,1,0,Other,98.6,None,0,3,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_3PzzY6UcKg5kGZB,77,0,0,Other,97.7,Dry,1,3,3,Positive,Not taken,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0
+normal,R_2ah14tKnPddsIWB,16,1,2,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2YrGlVfiNpFAz2H,44,1,0,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_22meqsJrPplCuyq,24,0,0,Other,100.4,Wet,1,3,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_2D22U9Q52vKpqGx,24,1,0,Other,98.2,Wet,1,2,0,Not taken,Positive,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+bacterial,R_1Nku5oxjalz9Req,36,1,0,Other,100.4,Dry,1,2,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_Djx48P9Ms3P3tGp,23,0,2,Latin,97.5,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_22n1sxr0TXT3nk1,65,0,0,Other,98.2,Dry,1,0,0,Not taken,Positive,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3GqUtrPELg7oCrF,15,0,0,Other,99.7,Wet,0,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_1M6D34cnNSHvb1d,22,1,0,Other,100.9,Wet,1,2,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3ek0NZays7zo326,23,0,0,Other,101.3,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2xDgJxemZBVE1ML,23,1,2,Hispanic ,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_2rGb2rlY0M1mc6a,66,0,0,Other,98.1,None,1,0,0,Not taken,Positive,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_1jiyz2CQYPDKcPS,20,1,0,Other,101.5,Wet,0,3,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_2q1PvwM4EQuvQg6,30,1,0,Other,99.7,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_31pIGfSeWjK52yI,53,0,0,Other,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_3PZVRLB4R4AH4lT,17,1,0,Other,97.2,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_1pAtJe1kl5hUBpN,69,0,1,Other,97.5,Dry,1,0,0,Pending,Positive,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+normal,R_2bJnA8aivsXTeKU,41,1,0,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3DvvwcrwZBnmwic,36,1,0,Asian,99.5,Dry,1,3,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_OKnyQW3awODWwiR,34,1,0,White,98.6,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_A7pjhRvGvSRCDjr,28,1,0,Other,98.6,Dry,0,0,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3Hi6fqbH4Hlo72N,55,0,0,Other,99.3,Dry,0,2,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2YzxU8PRG67wpiX,76,1,0,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_x431CM3DefSSgXn,16,0,0,Other,98.6,None,0,0,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_2dgWEtF5yQOVzmR,44,1,3,Other,98.6,None,0,3,3,Negative,Negative,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_3lRoIswraxSstMu,25,0,0,Other,97.5,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2Se2TYqRxFRc8jD,22,0,2,Hispanic ,97.3,None,1,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+normal,R_3hb8rpPYSj5sOhI,47,0,3,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_3j2GBKYCsgk9vdp,22,1,3,White,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_1laQBTfNszXp3kG,77,1,3,Other,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_3qItvEdf78V1KjB,81,0,0,Other,98.6,Wet,0,0,0,Not taken,Positive,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+normal,R_12JQheYe68Gad2a,20,1,0,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_1iqTaXsBqJXs2Fh,40,0,0,Other,98.8,None,0,0,0,Not taken,Positive,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+bacterial,R_9QqnEvhYhxNhSox,23,1,0,Other,98.2,None,0,1,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_ymVohcvJp63lTRT,71,0,0,Other,98.2,Dry,1,1,1,Not taken,Positive,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3EbB6NH65N1qZdg,36,1,0,Other,101.8,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_8J4qzoYXDO9CTpD,48,0,0,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3ffrggJOXKHOfhg,17,0,0,Other,99.9,None,1,1,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_8dgQBMZug4MXF0B,23,1,2,Hispanic ,96.3,None,1,0,0,Not taken,Positive,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+normal,R_bE4aflIy89fy8vf,19,1,0,Other,98.6,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2pVjJgmmqONsVZ4,16,0,0,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2AWMyg1254qhjbm,26,0,0,Other,98.4,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_a3l0EOX0hO0QROx,26,1,0,Other,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2EddYj9gFteqLHD,15,1,0,Hispanic ,96.4,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_32Yi86YZTH1cw26,22,0,0,Other,98.6,None,0,1,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_1Edo9YnF1LbcDmv,59,1,2,Other,98.1,Dry,1,3,3,Positive,Not taken,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+covid,R_3e4fwzKBBZalDMB,65,0,0,Other,97.9,Wet,1,2,2,Not taken,Positive,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+bacterial,R_ZC8Yn4FKmn8m4Rr,14,1,0,White,98.8,Dry,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_0dE4arEYyn9VJOV,37,1,0,Other,98.6,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_b3leKFOULI32qzL,20,1,0,White,99.5,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_1i3aduIIWZoLF4L,80,1,2,Other,97.7,None,1,0,0,Positive,Not taken,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0
+normal,R_3JyoZW4DWea9M0O,50,0,3,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2R93EL0uzHCe73p,24,0,2,Hispanic ,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_6JY14vKUBaNwo49,28,1,0,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_1joCAO3e3GJpWsV,40,1,0,Black or African American,101.1,Wet,1,3,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_3fxauJqQ7rTzQ8q,78,0,2,Other,98.1,None,1,0,0,Not taken,Positive,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+bacterial,R_3m4zjQhXEFjfpfG,26,0,0,Other,100,Dry,0,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3GANCSdkPpHxwSp,35,0,0,Other,100.4,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3EQJcE64A0hRFw8,48,0,0,Other,99.5,Dry,1,2,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_qU8k0Pr6MofGTkt,26,1,0,Other,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_231yloxoQGqlXHW,25,1,0,Other,98.6,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_1CwPCqYEGxeiu3r,77,0,0,Other,98.4,Dry,1,3,3,Not taken,Positive,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+covid,R_3kM71iUvFYeztLU,81,1,2,Other,98.1,None,1,0,0,Not taken,Positive,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+bacterial,R_SCxM86rK40qD18l,58,1,0,Other,97.5,None,0,1,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_32X6bqC80NZ7QQK,39,0,2,White,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_DOHaE6qdpqQ2rXb,13,1,0,White,100.8,Dry,0,1,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_1kGJnONZ6mt1B66,18,0,0,Other,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2saUBmp93M4ZiR5,21,0,0,Other,98.1,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_1K1lquwDIj8iEpe,33,0,0,Other,102.6,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2b11TvS59FvXRtx,46,0,0,Other,97.9,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_2UaRXaHCKsJDxMg,24,1,3,Other,97.5,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3EgaOaEaUQwAdr8,37,0,0,Other,98.6,None,1,2,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_1LScBGeovnBR8iP,46,1,0,Other,98.6,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_24ipaIKCMu1Ukhg,26,0,0,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3f3OGBUoSr0w3dv,28,1,0,Other,100.6,Dry,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_3G7IyHamnryCmwW,42,1,0,Other,100.2,Dry,0,1,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_3I5fyXtmCgzo5vR,56,1,0,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_1JLUvnDp19TsIfg,57,0,0,Asian,100.8,Wet,1,2,2,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_22mi0DezYnClZNd,38,1,0,Other,102.2,Wet,1,2,1,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_psEraLTj7t1old7,56,1,0,Other,102.9,Wet,1,3,3,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_T7w37nXgeNXUSyd,45,1,3,Other,98.1,None,0,1,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+normal,R_OGYjcHTtb2MR2NP,38,1,0,Other,97.7,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+covid,R_3MRQFPs4B2gDfLI,36,0,0,Other,98.1,None,0,0,0,Pending,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0
+normal,R_3LiN1UxNAVG42e4,36,1,0,Other,97.5,None,0,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+bacterial,R_23ZtwoTQKSptyVL,34,0,0,Other,98.8,None,1,0,0,Not taken,Not taken,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
