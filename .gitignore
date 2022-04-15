@@ -74,3 +74,8 @@ docs/_build/
 
 # Mypy cache
 .mypy_cache/
+models/cdetect_ann_checkpoint.pth.tar
+models/cdetect_ann_model_best.pth.tar
+models/cdetect_annonly_checkpoint.pth.tar
+models/cdetect_annonly_model_best.pth.tar
+models/cdetect_cnn_baseline.pth.tar

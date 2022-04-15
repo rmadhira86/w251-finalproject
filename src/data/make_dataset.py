@@ -23,12 +23,15 @@ import pandas as pd
 from pathlib import Path
 from tqdm import tqdm 
 from sklearn.model_selection import train_test_split
+import random
 
 #%%
 # Determine the current path and add project folder and src into the syspath 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[2]  # Project src directory.
 RANDOM_SEED = 200
+
+random.seed(RANDOM_SEED)
 
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
@@ -278,6 +281,109 @@ def augment_images(indir, outdir_compose, outdir_all=None):
 
     return image_paths
 
+# Ideally augment_images should include this code and operate on parameters.
+# Would require future refactoring to minimize code duplication.
+def augment_images_alt(indir, outdir_compose, outdir_all=None):
+    # Augments images with a set of image augmentations using the albumentations library
+    # Writes the original + composite image from augmentation pipeline into the outdir_compose folder. 
+    # Writes the original + composite image + images for each augmentation into outdir_all folder. 
+   
+    verboseprint(f"Processing {indir} into {outdir_compose} and {outdir_all}")
+    # Specify the augmentations to use to run an augmentation pipeline and create a composite image
+    aug_titles = ['Original','Composed']
+    # Change rotate_limit to +/- 45 degrees, remove the random crop and increase probability of Hue and BrightnessContrast to 0.8
+    augCompose = A.Compose([
+            A.SmallestMaxSize(max_size=350),
+            A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=45, p=0.5),
+            A.RGBShift(r_shift_limit=15, g_shift_limit=15, b_shift_limit=15, p=0.5),
+            A.MultiplicativeNoise(multiplier=[0.5,2], per_channel=True, p=0.2),
+            A.HueSaturationValue(hue_shift_limit=0.2, sat_shift_limit=0.2, val_shift_limit=0.2, p=0.8),
+            A.RandomBrightnessContrast(brightness_limit=(-0.1,0.25), contrast_limit=(-0.1, 0.25), p=0.8)])
+    
+    # Specify the augmentations to individual process and add.
+    # This need not be the same as the augCompose argument above. Also, please ensure that always_apply is True
+    # Sometimes you may need to apply processing like resizing images before and / or after applying an augmentation
+    #   In those cases specify the aug_prefix and aug_suffix augmentations
+    aug_prefix = [A.SmallestMaxSize(max_size=350)]
+    aug_titles += ['ShiftScaleRotate','RandomCorp','RGBShift','MultNoise','HueSat','RandBrightCont']        
+    aug_list = [
+            A.SmallestMaxSize(max_size=350),
+            A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=45, always_apply=True),
+            A.RGBShift(r_shift_limit=15, g_shift_limit=15, b_shift_limit=15, always_apply=True),
+            A.MultiplicativeNoise(multiplier=[0.5,2], per_channel=True, p=0.2),
+            A.HueSaturationValue(hue_shift_limit=0.2, sat_shift_limit=0.2, val_shift_limit=0.2, always_apply=True),
+            A.RandomBrightnessContrast(brightness_limit=(-0.1,0.25), contrast_limit=(-0.1, 0.25), always_apply=True)]
+    aug_suffix = []
+
+    if not os.path.isdir(indir):
+        raise ValueError(f"indir directory {indir} does not exist")
+    
+    if outdir_compose and os.path.exists(outdir_compose):
+        verboseprint(f"Emptying directory: {outdir_compose}")
+        shutil.rmtree(outdir_compose)
+    if outdir_all and os.path.exists(outdir_all):
+        verboseprint(f"Emptying directory: {outdir_all}")
+        shutil.rmtree(outdir_all)
+    image_paths = []
+    for path, subdirs, files in tqdm(os.walk(indir)):
+        for filename in files:
+            in_fname = os.path.join(path,filename)
+            f_name, f_ext = os.path.splitext(filename)
+            outsubdir = path.replace(str(indir),'')
+            if f_ext in ['.jpg','.png','.jpeg']:
+                img = get_image(in_fname)
+                this_img_paths = [in_fname]
+
+                aug_img = augCompose(image = img)
+
+                if outdir_compose:
+                    outdir = str(outdir_compose) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
+                    verboseprint(f"Outdir: {outdir}")
+
+                    out_file = os.path.join(str(outdir),f_name +f_ext)
+                    out_file = write_image(out_file, img)
+                    this_img_paths.append(out_file)
+
+                    out_file = os.path.join(str(outdir),f_name + '_' + aug_titles[1] +f_ext)
+                    verboseprint(f"Out_file: {out_file}")
+                    out_file = write_image(out_file, aug_img['image'])
+                    this_img_paths.append(out_file)
+    
+                if outdir_all:
+                    outdir = str(outdir_all) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
+                    # Both original and Composed files must also be copied
+                    outsubdir = path.replace(str(indir),'')
+                    outdir = str(outdir_all) + outsubdir
+
+                    out_file = os.path.join(outdir,f_name +f_ext)
+                    out_file = write_image(out_file, img)
+                    this_img_paths.append(out_file)
+
+                    out_file = os.path.join(outdir,f_name + '_' + aug_titles[1] +f_ext)
+                    out_file = write_image(out_file, aug_img['image'])
+                    this_img_paths.append(out_file)
+
+                    for i, aug in enumerate(aug_list):
+                        augC = A.Compose(aug_prefix + [aug] + aug_suffix)
+                        augi_img = augC(image= img)
+                        out_file = os.path.join(outdir,f_name + '_' + aug_titles[i+2] + f_ext)
+                        out_file = write_image(out_file, augi_img['image'])
+                        this_img_paths.append(out_file)
+                image_paths.append(this_img_paths)
+            else:
+                if outdir_compose:
+                    outdir = str(outdir_compose) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
+                    shutil.copy(str(in_fname), os.path.join(outdir,filename))
+                if outdir_all:
+                    outdir = str(outdir_all) + outsubdir
+                    os.makedirs(outdir,exist_ok=True)
+                    shutil.copy(str(in_fname), os.path.join(outdir,filename))
+
+    return image_paths
+
 def copy_folders(indir, outdir_compose, outdir_all):
 
     verboseprint(f"Processing {indir} into {outdir_compose} and {outdir_all}")
@@ -319,6 +425,20 @@ def main(args):
     outdir_all = Path(args.out_dir) / f"{args.project}_all" 
     aug_files = augment_images(indir = outdir / 'train', outdir_compose = outdir_compose / 'train', outdir_all= outdir_all / 'train')
     print_obj(aug_files, f=ROOT / 'reports/augmented_files.json')
+
+    copy_folders(indir = outdir / 'val', 
+                outdir_compose = outdir_compose / 'val', 
+                outdir_all = outdir_all / 'val')
+
+    copy_folders(indir = outdir / 'test', 
+                outdir_compose = outdir_compose / 'test', 
+                outdir_all = outdir_all / 'test')
+
+    # Duplicate code for recreating alternate set of augmentations 
+    outdir_compose = Path(args.out_dir) / f"{args.project}_compose_2" 
+    outdir_all = Path(args.out_dir) / f"{args.project}_all_2" 
+    aug_files = augment_images_alt(indir = outdir / 'train', outdir_compose = outdir_compose / 'train', outdir_all= outdir_all / 'train')
+    print_obj(aug_files, f=ROOT / 'reports/augmented_files_alt.json')
 
     copy_folders(indir = outdir / 'val', 
                 outdir_compose = outdir_compose / 'val', 
