@@ -481,7 +481,7 @@ if __name__ == "__main__":
     main(args)
 
 # Example use for default options
-# python3 preprocess.py --coco-file w251_final_project_throat_detector.v1-v1.coco.zip --clean-run --verbose
+# python3 make_dataset.py -f <file containing survey metadata> --stratify
 
 # %%
 
